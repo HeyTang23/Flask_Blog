@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咸鱼's Blog</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <script src="../static/js/bootstrap-waterfall.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/jquery.min.js"></script>
+    <link rel="icon" href="../static/img/favicon.ico">
+    <link href="https://xxxtang233.github.io/static/font-awesome/css/all.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+    <header class="navbar navbar-static-top nav" id="top">
+        <div class="containt">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar"
+                    aria-controls="bs-navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">咸鱼's Blog</a>
+            </div>
+            <nav id="bs-navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/getting-started/"><i class="far fa-tag"></i></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/init"><i class="far fa-link"></i></a></li>
+                    <li><a href="/get"><i class="fad fa-star-of-life"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- <div class="all">
+        <div class="container top">
+            <p class="fl">孩子去和昨天和解吧，就像我们从前那样</p>
+            <time class="fr">04-23 11:35:14</time>
+        </div>
+
+        <div class="container">
+            <div class="page">
+                <h1><a>Bootstrap heading</a></h1>
+                <p class="count">
+                    XXXXXXXXXXX<br>
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                </p>
+            </div>
+        </div>
+    </div> -->
+    
+    {% for r in datas %}
+    <div class="all">
+        <div class="container top">
+            <p class="fl">{{ r[4] }}</p>
+            <time class="fr">{{ r[3] }}</time>
+        </div>
+
+        <div class="container">
+            <div class="page">
+                <h1><a href={{ r[5] }} target="_blank">{{ r[1] }}</a></h1>
+                <p class="count">
+                    {{ r[2][:25]+"..." }}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
