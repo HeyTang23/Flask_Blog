@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 import sqlite3
-from time import *
+# from time import *
 
 app = Flask(__name__)
 
@@ -11,27 +11,39 @@ cursor = conn.cursor()
 sql = "select * from data"
 data = cursor.execute(sql)
 
+
 for i in data:
     datas.append(i)
-    link = strftime("/%m/%d/")+f"{i[3]}.html"
-    datas_dict[link] = [i[1], i[2], i[3], i[4]]
-    # print(i)
-print(datas_dict)
-
+    datas_dict[int(i[0])] = [i[1], i[2], i[3], i[4]]
+# print(datas_dict)
+# print(datas[0][2])
 
 @app.route('/')
+@app.route('/index.html')
 def index():
-    datas = []
-    conn = sqlite3.connect('db.db')
-    cursor = conn.cursor()
-    sql = "select * from data"
-    data = cursor.execute(sql)
-    for i in data:
-        datas.append(i)
-        print(i)
-    cursor.close()
-    conn.close()
-    return render_template("index.html", datas=datas)
+    # datas = []
+    # conn = sqlite3.connect('db.db')
+    # cursor = conn.cursor()
+    # sql = "select * from data"
+    # data = cursor.execute(sql)
+    # for i in data:
+    #     datas.append(i)
+    #     print(i)
+    # cursor.close()
+    # conn.close()
+    # print(datas[0])
+    len_ = {}
+    # print(datas)
+    for i in range(len(datas)):
+        # len_.append(i)
+        # print(datas[0])
+        # print(f"{}")
+        # print(datas[0][i+1])
+        # print(datas[i][2])
+        len_[datas[i][2]] = len(datas[i][2]) // 3
+    print(len_)    
+    
+    return render_template("index.html", datas=datas, len_ = len_)
 
 
 @app.route('/settings')
@@ -39,18 +51,14 @@ def settings():
     return render_template("settings.html")
 
 
-@app.route('/index.html')
-def index_():
-    return render_template("index.html")
-
-# links = request.path
-# for i in datas_dict.keys():
-@app.route(request.path)
-def link():
-    # print(request.path)
-    # print(request.args.get('key', ''))
-    # print(datas_dict['/05/12/测试页面.html'])
-    return render_template("page.html")
+@app.route("/post/<int:postid>")
+def post(postid):
+    # print(datas_dict[postid][1])
+    datas = datas_dict[postid]
+    # datas = [x.replace('\n', '"<br>"') for x in datas if x.strip() != '\n']
+    content = [x.split('\n') for x in datas if x.strip() != '\n']
+    # print(content)
+    return render_template('page.html', datas=datas, content=content[1])
 
 
 if __name__ == '__main__':
